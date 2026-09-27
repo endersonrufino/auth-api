@@ -1,21 +1,33 @@
-﻿using AuthApi.Application.Interfaces.Security;
+﻿using AuthApi.Application.Behaviors;
+using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AuthApi.Application;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApplication(
-        this IServiceCollection services)
-    {        
-        // Use cases
-        // services.AddScoped<ILoginUseCase, LoginUseCase>();
-        // services.AddScoped<IRegisterUseCase, RegisterUseCase>();
+    public static IServiceCollection AddApplication(this IServiceCollection services)
+    {
+        services.AddMediatR(config =>
+        {
+            config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
+        });
 
-        // Validators (FluentValidation, se usar)
-        // services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
+        services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
+
+        services.AddTransient(
+            typeof(IPipelineBehavior<,>),
+            typeof(LoggingBehavior<,>));
+
+        services.AddTransient(
+            typeof(IPipelineBehavior<,>),
+            typeof(ValidationBehavior<,>));
+
+        services.AddTransient(
+            typeof(IPipelineBehavior<,>),
+            typeof(TransactionBehavior<,>));
 
         return services;
     }
 }
-

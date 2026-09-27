@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AuthApi.Application.Users.Commands.CreateUser;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthApi.API.Controllers
@@ -7,14 +9,26 @@ namespace AuthApi.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        [Authorize]
-        [HttpGet("me")]
-        public IActionResult Me()
+        private readonly ISender _sender;
+
+        public UserController(ISender sender)
         {
-            return Ok(new
-            {
-                User = User.Identity?.Name
-            });
+            _sender = sender;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterAsync([FromBody] CreateUserCommand command, CancellationToken cancellationToken)
+        {
+            var userId = await _sender.Send(command, cancellationToken);
+
+            return Created(
+                "",
+                new
+                {
+                    userId
+                }
+            );
         }
     }
 }

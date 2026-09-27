@@ -1,5 +1,4 @@
 ﻿using AuthApi.Domain.Entities;
-using AuthApi.Infrastructure.Persistence.Seeds;
 using Microsoft.EntityFrameworkCore;
 
 namespace AuthApi.Infrastructure.Persistence;
@@ -10,12 +9,12 @@ public class AuthDbContext : DbContext
 
     public DbSet<User> Users => Set<User>();
     public DbSet<Profile> Profiles => Set<Profile>();
+    public DbSet<UserProfile> UserProfiles => Set<UserProfile>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuthDbContext).Assembly);
 
-        modelBuilder.Entity<Profile>().HasData(ProfileSeed.Data);
+        base.OnModelCreating(modelBuilder);
     }
 }
-

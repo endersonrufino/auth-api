@@ -29,14 +29,14 @@ public class TokenService : ITokenService
         );
 
         var key = new SymmetricSecurityKey(
-          Encoding.UTF8.GetBytes(_settings.SecretKey)
+          Encoding.UTF8.GetBytes(_settings.Key)
         );
 
         var token = new JwtSecurityToken(
             issuer: _settings.Issuer,
             audience: _settings.Audience,
             claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(_settings.ExpirationInMinutes),
+            expires: DateTime.UtcNow.AddMinutes(_settings.ExpiresInMinutes),
             signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
         );
 
