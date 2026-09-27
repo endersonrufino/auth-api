@@ -13,15 +13,15 @@ namespace AuthApi.Infrastructure.Persistence.Configurations
 
             builder.HasKey(x => new
             {
-                x.User_id,
-                x.Profile_id
+                x.UserId,
+                x.ProfileId
             });
 
-            builder.Property(x => x.User_id)
+            builder.Property(x => x.UserId)
                 .HasColumnName("user_id")
                 .IsRequired();
 
-            builder.Property(x => x.Profile_id)
+            builder.Property(x => x.ProfileId)
                 .HasColumnName("profile_id")
                 .IsRequired();
 
@@ -29,14 +29,14 @@ namespace AuthApi.Infrastructure.Persistence.Configurations
                 .HasColumnName("created_at")
                 .IsRequired();
 
-            builder.HasOne<User>()
-                .WithMany()
-                .HasForeignKey(x => x.User_id)
+            builder.HasOne(x => x.User)
+                .WithMany(x => x.Profiles)
+                .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne<Profile>()
+            builder.HasOne(x => x.Profile)
                 .WithMany()
-                .HasForeignKey(x => x.Profile_id)
+                .HasForeignKey(x => x.ProfileId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
