@@ -1,4 +1,4 @@
-﻿using AuthApi.Application.Interfaces;
+﻿using AuthApi.Application.Interfaces.Repositories;
 using AuthApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 

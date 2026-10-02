@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AuthApi.Application.Users.Queries
+namespace AuthApi.Application.Auth.Responses
 {
-    internal class GetUser
+    internal class LoginResponse
     {
     }
 }

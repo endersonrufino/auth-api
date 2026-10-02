@@ -1,4 +1,4 @@
-﻿namespace AuthApi.Application.Interfaces;
+﻿namespace AuthApi.Application.Interfaces.Repositories;
 
 public interface IProfileRepository
 {

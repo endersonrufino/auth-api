@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AuthApi.Application.Interfaces
+namespace AuthApi.Infrastructure.Security
 {
-    internal interface IJwtService
+    internal class RefreshTokenService
     {
     }
 }

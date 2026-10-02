@@ -1,4 +1,5 @@
 ﻿using AuthApi.Application.Interfaces;
+using AuthApi.Application.Interfaces.Repositories;
 using AuthApi.Application.Interfaces.Security;
 using AuthApi.Infrastructure.Persistence;
 using AuthApi.Infrastructure.Persistence.Configurations;
